@@ -2,10 +2,11 @@ import './index.css'
 import { menuItems } from './data/db'
 import { Menuitem } from './components/Menuitem'
 import useOrder from './hooks/useOrder'
+import { OrderContents } from './components/OrderContents'
 
 function App() {
 
-  const { addItem } = useOrder()
+  const { order, addItem } = useOrder()
 
   return (
     <>
@@ -13,7 +14,7 @@ function App() {
         <h1 className="text-center text-4xl font-bold">Calculadora de Propinas y Consumo</h1>
       </header>
 
-      <main className='max-w-7xl mx-auto py-20 grid md:grid-cols-2 bg-slate-400'> 
+      <main className='max-w-7xl mx-auto py-20 grid md:grid-cols-2'> 
         <div className='p-5'>
           <h2 className='text-4xl font-bold'>Menú</h2>
 
@@ -27,8 +28,11 @@ function App() {
             ))}
           </div>
         </div>
-        <div>
-          <h2>Consumo</h2>
+
+        <div className='border border-dashed border-slate-300 p-5 rounded-lg space-y-10'>
+          <OrderContents
+            order={order}
+          />
         </div>
       </main>
     </>
