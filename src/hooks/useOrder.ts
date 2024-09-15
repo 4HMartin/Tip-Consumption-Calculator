@@ -5,6 +5,7 @@ export default function useOrder(){
 
     // Se define el type utilizando los 'generics' para indicar el tipo de dato inicial
     const [order, setOrder] = useState<OrderItem[]>([])
+    const [tip, setTip] = useState(0)
 
     const addItem = (item: MenuItem) => {
 
@@ -36,6 +37,8 @@ export default function useOrder(){
 
     return {
         order,
+        tip,
+        setTip,
         addItem,
         removeItem
     }
