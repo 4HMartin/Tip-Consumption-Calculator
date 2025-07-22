@@ -36,21 +36,28 @@ function App() {
         </div>
 
         <div className='border border-dashed border-slate-300 p-5 rounded-lg space-y-10'>
-          <OrderContents
-            order={order}
-            removeItem={removeItem}
-          />
+          {state.order.length ? (
+            <>
+              <OrderContents
+                order={state.order}
+                removeItem={removeItem}
+              />
 
-          <TipPercentageForm
-            setTip={setTip}
-            tip={tip}
-          />
+              <TipPercentageForm
+                setTip={setTip}
+                tip={tip}
+              />
 
-          <OrderTotals
-            order={order}
-            tip={tip}
-            placeOrder={placeOrder}
-          />
+              <OrderTotals
+                order={state.order}
+                tip={tip}
+                placeOrder={placeOrder}
+              />
+            </>
+          ): (
+            <p className='text-center text-2xl font-bold'>No hay items en el pedido</p>
+          )}
+          
         </div>
       </main>
     </>
