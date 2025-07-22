@@ -24,9 +24,30 @@ export const orderReducer = (
 
     if (action.type === 'add-item') {
 
+        /** Evitar duplicados al añadir el mismo item incrementando su cantidad */
+        const itemExists = state.order.find(orderItem => orderItem.id === action.payload.item.id)
+        let order : OrderItem[] = [];
+        if(itemExists){
+            order = state.order.map(orderItem =>
+                orderItem.id === action.payload.item.id ? {...orderItem, quantity: orderItem.quantity + 1} : orderItem
+            )
+
+        } else {
+            /**
+             * Casting de parámetro recibido MenuItem a OrderItem
+             * Creamos una nueva variable con la copia del objeto recibido por parámetro y le añadimos la propiedad 'quantity'
+             * para que el nuevo objeto 'newItem' pueda ser del type OrderItem
+             */
+            const newItem = {...action.payload.item, quantity: 1}
+            /**
+             * Spread operator para copiar los valores del state actual y añadimos el nuevo objeto
+             */
+            order = [...state.order, newItem]
+        }
 
         return {
-            ...state
+            ...state,
+            order
         }
     }
     if (action.type === 'remove-item') {
