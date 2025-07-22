@@ -22,6 +22,7 @@ export const orderReducer = (
         action: OrderActions
     ) => {
 
+    {/** Añadir un item al pedido, comprobando si ya existe en el pedido y aumentando su cantidad si es así */}    
     if (action.type === 'add-item') {
 
         /** Evitar duplicados al añadir el mismo item incrementando su cantidad */
@@ -50,6 +51,7 @@ export const orderReducer = (
             order
         }
     }
+    {/* Evitar duplicados al eliminar un item, eliminando el item por su ID */}
     if (action.type === 'remove-item') {
 
         const order = state.order.filter(orderItem => orderItem.id !== action.payload.id)
@@ -59,18 +61,21 @@ export const orderReducer = (
             order
         }
     }
+    {/** Colocar el pedido, reiniciando el pedido y la propina */}
     if (action.type === 'place-order') {
-
-
         return {
-            ...state
+            ...state,
+            order: [],
+            tip: 0
         }
     }
+    {/** Añadir la propina al pedido */}
     if (action.type === 'add-tip') {
-
+        const tip = action.payload.value
 
         return {
-            ...state
+            ...state,
+            tip
         }
     }
 
